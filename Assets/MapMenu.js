@@ -33,6 +33,6 @@ function OnGUI ()
 	// Make sure we only call GUI.Window if doWindow0 is true.
 	if (isClicked)
 	{
-		GUI.Window (0, Rect (110,10,200,60), DoWindow0, "Basic Window");
+		GUI.ModalWindow (0, Rect (110,10,200,60), DoWindow0, "Basic Window");
 	}
 }
