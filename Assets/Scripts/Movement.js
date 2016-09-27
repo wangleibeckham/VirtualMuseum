@@ -1,157 +1,101 @@
-﻿ enum Axes {MouseXandY, MouseX, MouseY}
-    var Axis : Axes = Axes.MouseXandY;
+
+    private var minimumX = -360.0;
+    private var maximumX = 360.0;
+    private var minimumY = -60.0;
+    private var maximumY = 60.0;
+
+    private var rotationX = 0.0;
+    private var rotationY = 0.0;
  
-    var sensitivityX = 15.0;
-    var sensitivityY = 15.0;
- 
-    var minimumX = -360.0;
-    var maximumX = 360.0;
- 
-    var minimumY = -60.0;
-    var maximumY = 60.0;
- 
-    var rotationX = 0.0;
-    var rotationY = 0.0;
- 
-    var lookSpeed = 2.0;
+    var dragSpeed = 5.0;
+    var keySpeed = 8.0;
  
     var cameraReference : Camera;
-
     var frozen = false;
+
+    private var dragOriginX;
+    private var dragOriginY;
+
+    function handleClick(){
+        var hit : RaycastHit;
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // Debug.DrawRay (ray.origin, ray.direction * 10, Color.yellow);
+
+        if (Physics.Raycast (ray, hit))
+        {  
+        //  Do whatever you want to detect what's been hit from the data stored in the "hit" variable - this should rotate it...
+            var transform : Transform = hit.collider.GetComponent(Transform);
+            //Debug.Log(hit.collider.name);
+            if (hit.collider.name == 'Capsule')
+            {
+                SceneManagement.SceneManager.LoadScene(1);
+            }
+            if (transform && hit.collider.name == 'Cube')
+            {
+                transform.Rotate(30,0,0,Space.Self);
+            }
+
+        }
+	}
 
     function Update ()
     {
-    	if (Input.GetMouseButtonDown(0))
-    	{
-    		//Debug.Log("Pressed left click.");
-    		var hit : RaycastHit;
-			var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			Debug.DrawRay (ray.origin, ray.direction * 10, Color.yellow);
-   
-			if (Physics.Raycast (ray, hit))
-			{  
-    		//  Do whatever you want to detect what's been hit from the data stored in the "hit" variable - this should rotate it...
-   				var transform : Transform = hit.collider.GetComponent(Transform);
-                //Debug.Log(hit.collider.name);
- 				if (hit.collider.name == 'Capsule')
- 				{
-                    //Debug.Log(hit.collider.name);
- 					SceneManagement.SceneManager.LoadScene(1);
- 				}
-  				if (transform && hit.collider.name == 'Cube')
-  				{
-  					Debug.Log(transform.localEulerAngles.x);
-    				//Debug.Log(transform.localEulerAngles.y);
-    				//Debug.Log(transform.localEulerAngles.z);
-    				//transform.localEulerAngles.x += 90;
-    				//transform.localEulerAngles.y += 180;
-    				transform.Rotate(30,0,0,Space.Self);
-    				Debug.Log(transform.localEulerAngles.x);
-    				//Debug.Log(transform.localEulerAngles.y);
-    				//Debug.Log(transform.localEulerAngles.z);
-  				}
- 
-			}
-    	}
-    	if (Input.GetMouseButtonDown(1))
-    	{
-			// Debug.Log("Pressed right click.");
-			if (frozen == false) 
-			{
-				frozen = true;
-			}
-			else // frozen == true
-			{
-				frozen = false;
-			}
-			// Debug.Log(frozen);
+        //if left click
+        if(Input.GetMouseButtonDown(0)){
+            dragOriginX = Input.GetAxis("Mouse X");
+            dragOriginY = Input.GetAxis("Mouse Y");
+            handleClick();
+            return;
+        }
 
-		}
-		if(frozen == false) {
-	        // Move toward and away from the camera
-	        if (Input.GetAxis("Vertical"))
-	        {
-	            var translationZ = Input.GetAxis("Vertical");
-	            transform.localPosition += cameraReference.transform.localRotation * Vector3(0,0,translationZ);
-	        }
-	 
-	        // Strafe the camera
-	        if (Input.GetAxis("Horizontal"))
-	        {
-	            var translationX = Input.GetAxis("Horizontal");
-	            transform.localPosition += cameraReference.transform.localRotation * Vector3(translationX,0,0);
-	        }       
-	 
-	        if (Axis == Axes.MouseXandY)
-	        {
-	            // Read the mouse input axis
-	            rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-	            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-	 
-	            // Call our Adjust to 360 degrees and clamp function
-	            Adjust360andClamp();
-	 
-	            // Most likely you wouldn't do this here unless you're controlling an object's rotation.
-	            // Call our look left and right function.
-	            KeyLookAround();
-	 
-	            // Call our look up and down function.
-	            KeyLookUp();
-	        }
-	        else if (Axis == Axes.MouseX)
-	        {
-	            // Read the mouse input axis
-	            rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-	 
-	            // Call our Adjust to 360 degrees and clamp function
-	            Adjust360andClamp();
-	 
-	            // if you're doing a standard X on object Y on camera control, you'll probably want to 
-	            // delete the key control in MouseX. Also, take the transform out of the if statement.
-	            // Call our look left and right function.
-	            KeyLookAround();
-	 
-	            // Call our look up and down function.
-	            KeyLookUp(); 
-	        }
-	        else
-	        {
-	            // Read the mouse input axis
-	            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-	 
-	            // Call our Adjust to 360 degrees and clamp function
-	            Adjust360andClamp();
-	 
-	            // Call our look left and right function.
-	            KeyLookAround();
-	 
-	            // Call our look up and down function.
-	            KeyLookUp();
-	        }
-	    }
+        // if right click
+        if (Input.GetMouseButtonDown(1)){
+        	frozen = !frozen;
+        }
+
+
+        if (frozen) return;
+
+        //if left mouse down and has moved since last frame 
+        /*Note: without checking for mouseMoved, holding the mouse still at the end of a drag
+        	will cause the camera to drift towards the mouse forever */ 
+        if(Input.GetMouseButton(0) && mouseMoved()){
+            drag();
+        } 
+
+         //arrow controls
+        if (Input.GetAxis("Horizontal"))	// right/left keys 
+        {           
+        	rotationX += Input.GetAxis("Horizontal") * keySpeed;        
+        	Turn();
+        }
+        if (Input.GetAxis("Vertical"))		// up/down keys
+        {           
+        	rotationY += Input.GetAxis("Vertical") * keySpeed;        
+        	Turn();
+        }
+
     }
- 
-    function KeyLookAround ()
+
+     function drag(){     
+        rotationX += (dragOriginX-Input.GetAxis("Mouse X")) * dragSpeed;
+        rotationY += (dragOriginY-Input.GetAxis("Mouse Y")) * dragSpeed;
+
+        Turn();
+    }
+
+    function Turn ()
     {
-//      If you're not using it, you can delete this whole function. 
-//      Just be sure to delete where it's called in Update.
- 
-        // Call our Adjust to 360 degrees and clamp function
         Adjust360andClamp();
- 
-        // Transform our X angle
-        transform.localRotation = Quaternion.AngleAxis (rotationX, Vector3.up);
+     
+       	transform.localRotation = Quaternion.AngleAxis (rotationX, Vector3.up);
+
+       	// multiply to retain X transform
+    	transform.localRotation *= Quaternion.AngleAxis (rotationY, Vector3.left);
     }
- 
-    function KeyLookUp ()
-    {
-        // Adjust for 360 degrees and clamp
-        Adjust360andClamp();
- 
-        // Transform our Y angle, multiply so we don't loose our X transform
-        transform.localRotation *= Quaternion.AngleAxis (rotationY, Vector3.left);
-    }
- 
+
+
+    /* Adjust rotations to 360 degrees and clamp */
     function Adjust360andClamp ()
     {
 //      This prevents your rotation angle from going beyond 360 degrees and also 
@@ -163,24 +107,12 @@
         // Debug.Log (rotationX);
  
         // Don't let our X go beyond 360 degrees + or -
-        if (rotationX < -360)
-        {
-            rotationX += 360;
-        }
-        else if (rotationX > 360)
-        {
-            rotationX -= 360;
-        }   
+        if (rotationX < -360) rotationX += 360;
+        else if (rotationX > 360) rotationX -= 360;
  
         // Don't let our Y go beyond 360 degrees + or -
-        if (rotationY < -360)
-        {
-            rotationY += 360;
-        }
-        else if (rotationY > 360)
-        {
-            rotationY -= 360;
-        }
+        if (rotationY < -360) rotationY += 360;
+        else if (rotationY > 360) rotationY -= 360;
  
         // Clamp our angles to the min and max set in the Inspector
         rotationX = Mathf.Clamp (rotationX, minimumX, maximumX);
@@ -195,4 +127,9 @@
         {
             GetComponent.<Rigidbody>().freezeRotation = true;
         }
+    }
+
+	function mouseMoved()
+    {
+    	return (Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0);
     }
