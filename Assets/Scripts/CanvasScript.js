@@ -3,6 +3,7 @@ var movement : Movement;
 var c : UnityEngine.GameObject;
 var frozen;
 
+Start();
 TogglePopupClick();
 
 function Start()
@@ -33,7 +34,6 @@ function Update()
 
 function TogglePopupClick()
 {
-	Debug.Log(show);
 	show = !show;
 	if(show)
 	{
