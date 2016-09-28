@@ -2,6 +2,9 @@ var show = false;
 var movement : Movement;
 var c : UnityEngine.GameObject;
 var frozen;
+var ImageComponent : UnityEngine.UI.Image;
+var Image1 : Sprite;
+var Image2 : Sprite;
 
 Start();
 TogglePopupClick();
@@ -14,22 +17,16 @@ function Start()
 	gameObject.GetComponent(CanvasGroup).alpha = 0f;
 }
 
-function Update() 
+function OnDropdown(i : int) 
 {
-	if(Input.GetKeyDown('space'))
+	if(i == 0)
 	{
-		show = !show;
+		ImageComponent.sprite = Image1;
 	}
-	if(show)
+	if(i == 1)
 	{
-		gameObject.GetComponent(CanvasGroup).alpha = 1f;
-		movement.frozen = true;
+		ImageComponent.sprite = Image2;
 	}
-    else
-    {
-    	movement.frozen = false;
-        gameObject.GetComponent(CanvasGroup).alpha = 0f;
-    }
 }
 
 function TogglePopupClick()
