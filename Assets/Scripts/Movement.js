@@ -41,7 +41,7 @@
     private var maximumY = 60.0;
 
     /**
- 	* Value of current horizontal rotation 
+ 	* Value of current horizontal rotation
  	*
  	* @property rotationX
  	* @type float
@@ -49,7 +49,7 @@
     private var rotationX;
 
     /**
- 	* Value of current vertical rotation 
+ 	* Value of current vertical rotation
  	*
  	* @property rotationY
  	* @type float
@@ -57,7 +57,7 @@
     private var rotationY;
 
     /**
- 	* Speed of motion when click-and-dragging 
+ 	* Speed of motion when click-and-dragging
  	*
  	* @property dragSpeed
  	* @type float
@@ -71,9 +71,9 @@
  	* @type float
  	*/
  	var keySpeed = 8.0;
- 
+
     /**
- 	* If navigation is currently frozen 
+ 	* If navigation is currently frozen
  	*
  	* @property frozen
  	* @type boolean
@@ -98,7 +98,7 @@
 
 
     /**
- 	 * Determines if a click targets a particular object and acts accordingly 
+ 	 * Determines if a click targets a particular object and acts accordingly
  	 *
  	 * @method HandleClick
  	 */
@@ -109,7 +109,7 @@
        // Debug.DrawRay (ray.origin, ray.direction * 10, Color.yellow);
 
         if (Physics.Raycast (ray, hit))
-        {  
+        {
             var transform : Transform = hit.collider.GetComponent(Transform);
             //Debug.Log(hit.collider.name);
             if (hit.collider.name == "Capsule")
@@ -125,7 +125,7 @@
 	}
 
 	/**
- 	 * Unity-specified function. Is called every frame. 
+ 	 * Unity-specified function. Is called every frame.
  	 * Checks for key and mouse input and rotates the camera accordingly.
 	 *
  	 * @method Update
@@ -144,22 +144,22 @@
 
         if (frozen) return;
 
-        //if left mouse down and has moved since last frame 
+        //if left mouse down and has moved since last frame
         /*Note: without checking for mouseMoved, holding the mouse still at the end of a drag
-        	will cause the camera to drift towards the mouse forever */ 
+        	will cause the camera to drift towards the mouse forever */
         if(Input.GetMouseButton(0) && MouseMoved()){
             Drag();
-        } 
+        }
 
          //arrow controls
-        if (Input.GetAxis("Horizontal"))	// right/left keys 
-        {           
-        	rotationX += Input.GetAxis("Horizontal") * keySpeed;        
+        if (Input.GetAxis("Horizontal"))	// right/left keys
+        {
+        	rotationX += Input.GetAxis("Horizontal") * keySpeed;
         	Turn();
         }
         if (Input.GetAxis("Vertical"))		// up/down keys
-        {           
-        	rotationY += Input.GetAxis("Vertical") * keySpeed;        
+        {
+        	rotationY += Input.GetAxis("Vertical") * keySpeed;
         	Turn();
         }
 
@@ -171,7 +171,7 @@
  	 * @method Drag
  	 */
     function Drag()
-    {     
+    {
         rotationX += (dragOriginX-Input.GetAxis("Mouse X")) * dragSpeed;
         rotationY += (dragOriginY-Input.GetAxis("Mouse Y")) * dragSpeed;
 
@@ -179,14 +179,14 @@
     }
 
 	/**
- 	 * Calls Adjust360andClamp() before performing the rotation of this game object 
+ 	 * Calls Adjust360andClamp() before performing the rotation of this game object
  	 *
  	 * @method Turn
  	 */
     function Turn()
     {
         Adjust360andClamp();
-     
+
        	transform.localRotation = Quaternion.AngleAxis (rotationX, Vector3.up);
 
        	// multiply to retain X transform
@@ -196,36 +196,36 @@
 
 
     /**
- 	 * Adjusts the raw rotationX and rotationY to be within allowed range 
- 	 * 
+ 	 * Adjusts the raw rotationX and rotationY to be within allowed range
+ 	 *
  	 * @method Adjust360andClamp
  	 */
     function Adjust360andClamp ()
     {
         // Debug.Log (rotationX);
- 
+
         // Don't let our X go beyond 360 degrees + or -
         if (rotationX <= -360) rotationX += 360;
         else if (rotationX >= 360) rotationX -= 360;
- 
+
         // Don't let our Y go beyond 360 degrees + or -
         if (rotationY <= -360) rotationY += 360;
         else if (rotationY >= 360) rotationY -= 360;
- 
+
         // Clamp our angles to the min and max
         rotationX = Mathf.Clamp (rotationX, minimumX, maximumX);
         rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
     }
 
     /**
- 	 * Initialization method specified by Unity. 
+ 	 * Initialization method specified by Unity.
  	 * Sets rotationX and rotationY based on the "Transform" values set in the Unity GUI
  	 *
  	 * @method Start
  	 */
     function Start()
     {
-    	rotationX = transform.eulerAngles.y;	
+    	rotationX = transform.eulerAngles.y;
     	rotationY = 360-transform.eulerAngles.x;
     }
 
