@@ -46,7 +46,7 @@
  	* @property rotationX
  	* @type float
  	*/
-    private var rotationX;
+    private var rotationX : float;
 
     /**
  	* Value of current vertical rotation
@@ -54,7 +54,7 @@
  	* @property rotationY
  	* @type float
  	*/
-    private var rotationY;
+    private var rotationY : float;
 
     /**
  	* Speed of motion when click-and-dragging
@@ -86,7 +86,7 @@
  	* @property dragOriginX
  	* @type float
  	*/
-    private var dragOriginX;
+    private var dragOriginX : float;
 
     /**
  	* Y position last clicked on
@@ -94,9 +94,9 @@
  	* @property dragOriginY
  	* @type float
  	*/
-    private var dragOriginY;
+    private var dragOriginY: float;
 
-
+  
     /**
  	 * Determines if a click targets a particular object and acts accordingly
  	 *
