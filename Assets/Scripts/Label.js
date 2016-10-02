@@ -1,6 +1,6 @@
 /**
-Handles pop-up in Scene 1
-Judy Chung
+Handles pop-up in Scene 1 <br>
+Judy Chung, Zhenwei Wang
 @class Label
 @extends MonoBehavior
 **/
