@@ -16,30 +16,6 @@
 var show = false;
 
 /**
-* object representing the Movement.js script
-*
-* @property movement
-* @type Movement
-**/
-var movement : Movement;
-
-/**
-* object representing the main camera GameObject
-*
-* @property c
-* @type UnityEngine.GameObject
-**/
-var c : UnityEngine.GameObject;
-
-/**
-* if navigation is currently frozen; boolean var taken from Movement.js
-*
-* @property frozen
-* @type boolean
-**/
-var frozen;
-
-/**
 * object representing the Image GameObject
 *
 * @property ImageComponent
@@ -73,9 +49,6 @@ TogglePopupClick();
 **/
 function Start()
 {
-	c = GameObject.Find("Main Camera");
-	movement = c.GetComponent(Movement);
-	frozen = movement.frozen;
 	gameObject.GetComponent(CanvasGroup).alpha = 0f;
 }
 
@@ -109,11 +82,11 @@ function TogglePopupClick()
 	if(show)
 	{
 		gameObject.GetComponent(CanvasGroup).alpha = 1f;
-		movement.frozen = true;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 	}
     else
     {
-    	movement.frozen = false;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
         gameObject.GetComponent(CanvasGroup).alpha = 0f;
     }
 }
@@ -128,7 +101,7 @@ function ClosePopupClick()
 	if(show)
 	{
 		show = false;
-		movement.frozen = false;
+		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
 		gameObject.GetComponent(CanvasGroup).alpha = 0f;
 	}
 }

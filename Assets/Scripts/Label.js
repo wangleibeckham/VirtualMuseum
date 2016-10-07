@@ -13,7 +13,7 @@ Judy Chung, Zhenwei Wang
 * @property isClicked
 * @type boolean
 */
-var isClicked: boolean;
+private var isClicked: boolean;
 
 /**
 * image holder for pop-up
@@ -45,7 +45,7 @@ var description: String;
 * @property back
 * @type String
 */
-var back = "Back";
+private var back = "Back";
 
 /**
 * define the style of the content
