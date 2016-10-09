@@ -117,13 +117,13 @@ function OnGUI()
 {
 	if (isClicked)
 	{
-		Camera.main.GetComponent(Movement).enabled = false;
+		//Camera.main.GetComponent(Movement).enabled = false;
 		GUI.backgroundColor=Color.grey;
 		GUI.ModalWindow (0, Rect (0,0,Screen.width,Screen.height), DoWindow0, title,style);
 		style.fontSize = 20;
 		style.alignment = TextAnchor.UpperCenter;
 	}
 	if (!isClicked){
-		Camera.main.GetComponent(Movement).enabled = true;
+		//Camera.main.GetComponent(Movement).enabled = true;
 	}
 }
