@@ -63,8 +63,15 @@ var Image1 : Sprite;
 **/
 var Image2 : Sprite;
 
+/**
+* the third floor map of the museum
+*
+*@property Image3
+* @type Sprite
+**/
+var Image3 : Sprite;
+
 Start();
-TogglePopupClick();
 
 /**
 * sets value of variables c, movement, frozen, and sets map menu to invisible
@@ -94,6 +101,10 @@ function OnDropdown(i : int)
 	if(i == 1)
 	{
 		ImageComponent.sprite = Image2;
+	}
+	if(i == 2)
+	{
+		ImageComponent.sprite = Image3;
 	}
 }
 
