@@ -76,7 +76,7 @@ function Start()
 	c = GameObject.Find("Main Camera");
 	movement = c.GetComponent(Movement);
 	frozen = movement.frozen;
-	gameObject.GetComponent(CanvasGroup).alpha = 0f;
+	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 }
 
 /**
@@ -108,13 +108,13 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		gameObject.GetComponent(CanvasGroup).alpha = 1f;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
 		movement.frozen = true;
 	}
     else
     {
     	movement.frozen = false;
-        gameObject.GetComponent(CanvasGroup).alpha = 0f;
+        ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
     }
 }
 
@@ -129,7 +129,7 @@ function ClosePopupClick()
 	{
 		show = false;
 		movement.frozen = false;
-		gameObject.GetComponent(CanvasGroup).alpha = 0f;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	}
 }
 
