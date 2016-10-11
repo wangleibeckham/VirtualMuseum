@@ -45,6 +45,8 @@ var frozen;
 * @property ImageComponent
 * @type UnityEngine.UI.Image
 **/
+
+var Button2 : UnityEngine.UI.Button;
 var ImageComponent : UnityEngine.UI.Image;
 
 /**
@@ -71,6 +73,8 @@ var Image2 : Sprite;
 **/
 var Image3 : Sprite;
 
+var Floor3 : GameObject[];
+
 Start();
 
 /**
@@ -84,6 +88,11 @@ function Start()
 	movement = c.GetComponent(Movement);
 	frozen = movement.frozen;
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
+	for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
 }
 
 /**
@@ -97,14 +106,29 @@ function OnDropdown(i : int)
 	if(i == 0)
 	{
 		ImageComponent.sprite = Image1;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
+		//Button2.interactable = true;
 	}
 	if(i == 1)
 	{
 		ImageComponent.sprite = Image2;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
+		//Button2.interactable = false;
 	}
 	if(i == 2)
 	{
 		ImageComponent.sprite = Image3;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+		}
+		//Button2.interactable = false;
 	}
 }
 
@@ -153,4 +177,9 @@ function ClosePopupClick()
 function ChangeRoom(i : int)
 {
 	SceneManagement.SceneManager.LoadScene(i);
+}
+
+function Test()
+{
+	Debug.Log('Clicked!');
 }
