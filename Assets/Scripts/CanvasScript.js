@@ -16,30 +16,6 @@
 var show = false;
 
 /**
-* object representing the Movement.js script
-*
-* @property movement
-* @type Movement
-**/
-var movement : Movement;
-
-/**
-* object representing the main camera GameObject
-*
-* @property c
-* @type UnityEngine.GameObject
-**/
-var c : UnityEngine.GameObject;
-
-/**
-* if navigation is currently frozen; boolean var taken from Movement.js
-*
-* @property frozen
-* @type boolean
-**/
-var frozen;
-
-/**
 * object representing the Image GameObject
 *
 * @property ImageComponent
@@ -84,15 +60,13 @@ Start();
 **/
 function Start()
 {
-	c = GameObject.Find("Main Camera");
-	movement = c.GetComponent(Movement);
-	frozen = movement.frozen;
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
+	gameObject.GetComponent(CanvasGroup).alpha = 0f;
 }
 
 /**
@@ -143,13 +117,13 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
-		movement.frozen = true;
+		gameObject.GetComponent(CanvasGroup).alpha = 1f;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 	}
     else
     {
-    	movement.frozen = false;
-        ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
+        gameObject.GetComponent(CanvasGroup).alpha = 0f;
     }
 }
 
@@ -163,8 +137,8 @@ function ClosePopupClick()
 	if(show)
 	{
 		show = false;
-		movement.frozen = false;
-		ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
+		gameObject.GetComponent(CanvasGroup).alpha = 0f;
 	}
 }
 

@@ -1,13 +1,65 @@
+/**
+Handles pop-up in Scene 1 <br>
+Judy Chung, Zhenwei Wang
+@class Label
+@extends MonoBehavior
+**/
+
 #pragma strict
 
-var isClicked: boolean;
-var textureToDisplay : Texture2D;
-var title: String;
-var description: String;
-var back = "Back";
-var style : GUIStyle;
-// var c : UnityEngine.GameObject;
+/**
+* if mouse is clicked
+*
+* @property isClicked
+* @type boolean
+*/
+private var isClicked: boolean;
 
+/**
+* image holder for pop-up
+*
+* @property textureToDisplay
+* @type Texture2D
+*/
+var textureToDisplay : Texture2D;
+
+/**
+* string used to display the title of the pop-up
+*
+* @property title
+* @type string
+*/
+var title: String;
+
+/**
+* description of pop-up
+*
+* @property description
+* @type String
+*/
+var description: String;
+
+/**
+* variable for "Back" button
+*
+* @property back
+* @type String
+*/
+private var back = "Back";
+
+/**
+* define the style of the content
+*
+* @property style
+* @type GUIStyle
+*/
+var style : GUIStyle;
+
+/**
+ * box collider is created
+ *
+ * @method Start
+ */
 function Start ()
 {
 	;
@@ -19,23 +71,27 @@ function Start ()
 
 }
 
+/**
+ * if mouse is clicked changes variable isClicked to be true
+ *
+ * @method OnMouseDown
+ */
 function OnMouseDown()
 {
 	isClicked = !isClicked;
-//	 movement.frozen = true;
 }
 
-//function OnMouseUp()
-//{
-//	isClicked = false;
-//}
-
+/**
+ * makes the content of the window of pop-up display using GUI.Labels
+ *
+ * @method DoWindow0
+ */
 function DoWindow0 (windowID : int)
 {
-	
-	GUI.Label ( 
-	Rect (10, 30, 
-				(textureToDisplay.width >Screen.width*2/3)? Screen.width*2/3:textureToDisplay.width, 
+
+	GUI.Label (
+	Rect (10, 30,
+				(textureToDisplay.width >Screen.width*2/3)? Screen.width*2/3:textureToDisplay.width,
 				textureToDisplay.height
 		 ), textureToDisplay);
 
@@ -47,30 +103,27 @@ function DoWindow0 (windowID : int)
 	var Button = GUI.Button (Rect (10,textureToDisplay.height+50, 100, 50), back);
 	if(Button)
 	{
-		
+
 		isClicked = !isClicked;
 	}
 }
 
+/**
+ * is run when the GUI is called and disables background movement when pop-up is displayed
+ *
+ * @method OnGui
+ */
 function OnGUI()
 {
-//	if (isClicked == true) {
-//		GUI.Label ( Rect (10,10,200,20), "The Hidden Dinosaur Skeleton!");
-//		GUI.Label ( Rect (10, 40, textureToDisplay.width, textureToDisplay.height), textureToDisplay);
-//	}
-
-	// Make a toggle button for hiding and showing the window
-	// isClicked = GUI.Toggle (Rect (10,10,100,20), isClicked, "MENU");
-	// Make sure we only call GUI.Window if doWindow0 is true.
 	if (isClicked)
 	{
-		Camera.main.GetComponent(Movement).enabled = false;
+		//Camera.main.GetComponent(Movement).enabled = false;
 		GUI.backgroundColor=Color.grey;
 		GUI.ModalWindow (0, Rect (0,0,Screen.width,Screen.height), DoWindow0, title,style);
 		style.fontSize = 20;
 		style.alignment = TextAnchor.UpperCenter;
 	}
 	if (!isClicked){
-		Camera.main.GetComponent(Movement).enabled = true;
+		//Camera.main.GetComponent(Movement).enabled = true;
 	}
 }
