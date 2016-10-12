@@ -66,7 +66,6 @@ function Start()
 		{
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
-	gameObject.GetComponent(CanvasGroup).alpha = 0f;
 }
 
 /**
@@ -117,13 +116,13 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		gameObject.GetComponent(CanvasGroup).alpha = 1f;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 	}
     else
     {
 		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
-        gameObject.GetComponent(CanvasGroup).alpha = 0f;
+        ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
     }
 }
 
@@ -138,7 +137,7 @@ function ClosePopupClick()
 	{
 		show = false;
 		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
-		gameObject.GetComponent(CanvasGroup).alpha = 0f;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	}
 }
 
