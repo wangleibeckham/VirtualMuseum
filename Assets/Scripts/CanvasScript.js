@@ -16,35 +16,13 @@
 var show = false;
 
 /**
-* object representing the Movement.js script
-*
-* @property movement
-* @type Movement
-**/
-var movement : Movement;
-
-/**
-* object representing the main camera GameObject
-*
-* @property c
-* @type UnityEngine.GameObject
-**/
-var c : UnityEngine.GameObject;
-
-/**
-* if navigation is currently frozen; boolean var taken from Movement.js
-*
-* @property frozen
-* @type boolean
-**/
-var frozen;
-
-/**
 * object representing the Image GameObject
 *
 * @property ImageComponent
 * @type UnityEngine.UI.Image
 **/
+
+var Button2 : UnityEngine.UI.Button;
 var ImageComponent : UnityEngine.UI.Image;
 
 /**
@@ -63,8 +41,17 @@ var Image1 : Sprite;
 **/
 var Image2 : Sprite;
 
+/**
+* the third floor map of the museum
+*
+*@property Image3
+* @type Sprite
+**/
+var Image3 : Sprite;
+
+var Floor3 : GameObject[];
+
 Start();
-TogglePopupClick();
 
 /**
 * sets value of variables c, movement, frozen, and sets map menu to invisible
@@ -73,10 +60,12 @@ TogglePopupClick();
 **/
 function Start()
 {
-	c = GameObject.Find("Main Camera");
-	movement = c.GetComponent(Movement);
-	frozen = movement.frozen;
-	gameObject.GetComponent(CanvasGroup).alpha = 0f;
+	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
+	for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
 }
 
 /**
@@ -90,10 +79,29 @@ function OnDropdown(i : int)
 	if(i == 0)
 	{
 		ImageComponent.sprite = Image1;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
+		//Button2.interactable = true;
 	}
 	if(i == 1)
 	{
 		ImageComponent.sprite = Image2;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+		}
+		//Button2.interactable = false;
+	}
+	if(i == 2)
+	{
+		ImageComponent.sprite = Image3;
+		for(button in Floor3)
+		{
+			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+		}
+		//Button2.interactable = false;
 	}
 }
 
@@ -108,13 +116,13 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		gameObject.GetComponent(CanvasGroup).alpha = 1f;
-		movement.frozen = true;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 	}
     else
     {
-    	movement.frozen = false;
-        gameObject.GetComponent(CanvasGroup).alpha = 0f;
+		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
+        ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
     }
 }
 
@@ -128,8 +136,8 @@ function ClosePopupClick()
 	if(show)
 	{
 		show = false;
-		movement.frozen = false;
-		gameObject.GetComponent(CanvasGroup).alpha = 0f;
+		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
+		ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	}
 }
 
@@ -142,4 +150,9 @@ function ClosePopupClick()
 function ChangeRoom(i : int)
 {
 	SceneManagement.SceneManager.LoadScene(i);
+}
+
+function Test()
+{
+	Debug.Log('Clicked!');
 }
