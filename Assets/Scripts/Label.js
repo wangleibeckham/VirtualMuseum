@@ -13,8 +13,9 @@ Judy Chung, Zhenwei Wang
 * @property isClicked
 * @type boolean
 */
-private var isClicked: boolean;
+var isClicked: boolean;
 
+var clickableCanvas: GameObject;
 /**
 * image holder for pop-up
 *
@@ -39,13 +40,6 @@ var title: String;
 */
 var description: String;
 
-/**
-* variable for "Back" button
-*
-* @property back
-* @type String
-*/
-private var back = "Back";
 
 /**
 * define the style of the content
@@ -54,7 +48,6 @@ private var back = "Back";
 * @type GUIStyle
 */
 var style : GUIStyle;
-
 /**
  * box collider is created
  *
@@ -62,14 +55,22 @@ var style : GUIStyle;
  */
 function Start ()
 {
-	;
+	
 	isClicked = false;
-	if (gameObject.GetComponent(Collider) == null)
-	{
-		gameObject.AddComponent(typeof(BoxCollider));
-	}
+	clickableCanvas.SetActive(isClicked);
+	Camera.main.GetComponent(Movement).enabled = true;
+
+	var cancelButton= clickableCanvas.transform.Find("clickablePanel").Find("cancelButton").GetComponent(UI.Button);
+	cancelButton.onClick.AddListener(TaskOnClick);
 
 }
+
+function TaskOnClick()
+{
+	Camera.main.GetComponent(Movement).enabled = true;
+	isClicked = false;
+}
+
 
 /**
  * if mouse is clicked changes variable isClicked to be true
@@ -79,51 +80,31 @@ function Start ()
 function OnMouseDown()
 {
 	isClicked = !isClicked;
+	if (isClicked){
+		renderContent();
+		Camera.main.GetComponent(Movement).enabled = false;
+	}
+	else{
+		Camera.main.GetComponent(Movement).enabled = true;
+	}
+	clickableCanvas.SetActive(isClicked);
+
 }
 
-/**
- * makes the content of the window of pop-up display using GUI.Labels
- *
- * @method DoWindow0
- */
-function DoWindow0 (windowID : int)
+function renderContent()
 {
+// title of the clickable
+	var clickableTitle = clickableCanvas.transform.Find("clickablePanel").Find("title").GetComponent(UI.Text);
+	clickableTitle.text = title; 
 
-	GUI.Label (
-	Rect (10, 30,
-				(textureToDisplay.width >Screen.width*2/3)? Screen.width*2/3:textureToDisplay.width,
-				textureToDisplay.height
-		 ), textureToDisplay);
+	// description of the clickable
+	var clickableDescription = clickableCanvas.transform.Find("clickablePanel").Find("descriptionPanel").Find("description").GetComponent(UI.Text);
+	clickableDescription.text = description; 
 
-	GUI.Label ( Rect (
-	(textureToDisplay.width >Screen.width*2/3)? Screen.width*2/3+30:textureToDisplay.width+30,
-	30,
-	Screen.width/3,
-	textureToDisplay.height), description);
-	var Button = GUI.Button (Rect (10,textureToDisplay.height+50, 100, 50), back);
-	if(Button)
-	{
-
-		isClicked = !isClicked;
-	}
+	// image of the popup
+	var clickableImage = clickableCanvas.transform.Find("clickablePanel").Find("image").GetComponent(UI.RawImage);
+	clickableImage.texture = textureToDisplay; 
 }
 
-/**
- * is run when the GUI is called and disables background movement when pop-up is displayed
- *
- * @method OnGui
- */
-function OnGUI()
-{
-	if (isClicked)
-	{
-		//Camera.main.GetComponent(Movement).enabled = false;
-		GUI.backgroundColor=Color.grey;
-		GUI.ModalWindow (0, Rect (0,0,Screen.width,Screen.height), DoWindow0, title,style);
-		style.fontSize = 20;
-		style.alignment = TextAnchor.UpperCenter;
-	}
-	if (!isClicked){
-		//Camera.main.GetComponent(Movement).enabled = true;
-	}
-}
+
+
