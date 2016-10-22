@@ -22,7 +22,6 @@ var show = false;
 * @type UnityEngine.UI.Image
 **/
 
-var Button2 : UnityEngine.UI.Button;
 var ImageComponent : UnityEngine.UI.Image;
 
 /**
@@ -49,12 +48,18 @@ var Image2 : Sprite;
 **/
 var Image3 : Sprite;
 
+/**
+* all buttons tagged with 'Floor3'
+*
+* @property Floor3
+* @type GameObject[]
+**/
 var Floor3 : GameObject[];
 
 Start();
 
 /**
-* sets value of variables c, movement, frozen, and sets map menu to invisible
+* sets value of variables c, movement, frozen, sets map menu to invisible, and sets interactivity of floor buttons to false
 *
 * @method Start
 **/
@@ -72,7 +77,7 @@ function Start()
 * for dropdown onValueChange function; changes map image displayed dependent on the integer index value received.
 * 
 * @method OnDropdown
-* @param {Integer} i The index value of the dropdown option selected by the user
+* @param {Integer} i The index value of the dropdown option selected by the user; and toggles interactivity of floor buttons
 **/
 function OnDropdown(i : int) 
 {
@@ -106,7 +111,7 @@ function OnDropdown(i : int)
 }
 
 /**
-* toggles the visibility of the map menu and disable the Movement.js script; used by OpenPopup button
+* toggles the visibility of the map menu and disable the Movement.js script; used by Menu Button
 *
 * @method 
 * @method TogglePopupClick
@@ -150,9 +155,4 @@ function ClosePopupClick()
 function ChangeRoom(i : int)
 {
 	SceneManagement.SceneManager.LoadScene(i);
-}
-
-function Test()
-{
-	Debug.Log('Clicked!');
 }
