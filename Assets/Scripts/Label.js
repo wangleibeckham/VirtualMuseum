@@ -1,5 +1,5 @@
 /**
-Handles pop-up in Scene 1 <br>
+Handles pop-up in Scenes <br>
 Judy Chung, Zhenwei Wang
 @class Label
 @extends MonoBehavior
@@ -15,7 +15,14 @@ Judy Chung, Zhenwei Wang
 */
 var isClicked: boolean;
 
+/**
+* object holder for clickable canvas
+*
+* @property clickableCanvas
+* @type GameObject
+*/
 var clickableCanvas: GameObject;
+
 /**
 * image holder for pop-up
 *
@@ -49,7 +56,7 @@ var description: String;
 */
 var style : GUIStyle;
 /**
- * box collider is created
+ * canvas is created, add listener to cancel button so the movement script can be enable when the cancel button is clicked
  *
  * @method Start
  */
@@ -65,6 +72,11 @@ function Start ()
 
 }
 
+/**
+ * the function that is triggered when the cancel button is clicked.
+ *
+ * @method TaskOnClick
+ */
 function TaskOnClick()
 {
 	Camera.main.GetComponent(Movement).enabled = true;
@@ -73,7 +85,8 @@ function TaskOnClick()
 
 
 /**
- * if mouse is clicked changes variable isClicked to be true
+ * if mouse is clicked changes variable isClicked to be true, 
+ * and disable movement script if isClicked or enable it if !isClicked.
  *
  * @method OnMouseDown
  */
@@ -91,6 +104,12 @@ function OnMouseDown()
 
 }
 
+
+/**
+ * the function to render the content of the clickablecanvas. 
+ *
+ * @method renderContent
+ */
 function renderContent()
 {
 // title of the clickable
