@@ -1,5 +1,5 @@
 ﻿/**
-Handles text font changes
+Handles text font changes <br>
 Judy Chung, Zhenwei Wang
 @class ChangeDescTextFont
 @extends MonoBehavior
