@@ -72,14 +72,6 @@
  	*/
  	var keySpeed = 8.0;
 
-    /**
- 	* If navigation is currently frozen
- 	*
- 	* @property frozen
- 	* @type boolean
- 	*/
- 	var frozen = false;
-
  	/**
  	* X position last clicked on
  	*
@@ -96,34 +88,6 @@
  	*/
     private var dragOriginY: float;
 
-  
-    /**
- 	 * Determines if a click targets a particular object and acts accordingly
- 	 *
- 	 * @method HandleClick
- 	 */
-    function HandleClick()
-    {
-        var hit : RaycastHit;
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       // Debug.DrawRay (ray.origin, ray.direction * 10, Color.yellow);
-
-        if (Physics.Raycast (ray, hit))
-        {
-            var transform : Transform = hit.collider.GetComponent(Transform);
-            //Debug.Log(hit.collider.name);
-            if (hit.collider.name == "Capsule")
-            {
-                SceneManagement.SceneManager.LoadScene(1);
-            }
-            if (transform && hit.collider.name == "Cube")
-            {
-                transform.Rotate(30,0,0,Space.Self);
-            }
-
-        }
-	}
-
 	/**
  	 * Unity-specified function. Is called every frame.
  	 * Checks for key and mouse input and rotates the camera accordingly.
@@ -138,11 +102,8 @@
         if(Input.GetMouseButtonDown(0)){
             dragOriginX = Input.GetAxis("Mouse X");
             dragOriginY = Input.GetAxis("Mouse Y");
-            HandleClick();
             return;
         }
-
-        if (frozen) return;
 
         //if left mouse down and has moved since last frame
         /*Note: without checking for mouseMoved, holding the mouse still at the end of a drag
