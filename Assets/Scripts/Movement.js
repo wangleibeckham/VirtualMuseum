@@ -62,7 +62,7 @@
  	* @property dragSpeed
  	* @type float
  	*/
-    var dragSpeed = 5.0;
+    var dragSpeed : float;
 
     /**
  	* Speed of motion when pressing arrow keys
@@ -70,7 +70,7 @@
  	* @property keySpeed
  	* @type float
  	*/
- 	var keySpeed = 8.0;
+ 	var keySpeed : float;
 
  	/**
  	* X position last clicked on
@@ -188,6 +188,7 @@
     {
     	rotationX = transform.eulerAngles.y;
     	rotationY = 360-transform.eulerAngles.x;
+    	Adjust360andClamp();
     }
 
 	/**
