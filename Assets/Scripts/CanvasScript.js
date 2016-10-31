@@ -69,7 +69,7 @@ function Start()
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
-			Debug.Log(((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text);
+			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).material.color.a = 1;
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
 }
