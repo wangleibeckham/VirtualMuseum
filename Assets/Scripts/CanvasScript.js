@@ -58,7 +58,9 @@ var Floor3 : GameObject[];
 
 var ButtonNumbers = new Array();
 
-Start();
+var SceneName : String;
+
+//Start(); unnecessary code
 
 /**
 * sets value of variables c, movement, frozen, sets map menu to invisible, and sets interactivity of floor buttons to false
@@ -67,6 +69,7 @@ Start();
 **/
 function Start()
 {
+	Debug.Log(Application.loadedLevelName);
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
