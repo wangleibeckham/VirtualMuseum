@@ -72,7 +72,7 @@ function Start()
 	for(button in Floor3)
 		{
 			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
-			Debug.Log(number);
+			//Debug.Log(number);
 			ButtonNumbers.push(number);
 			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
