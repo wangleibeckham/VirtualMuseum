@@ -56,6 +56,8 @@ var Image3 : Sprite;
 **/
 var Floor3 : GameObject[];
 
+var ButtonNumbers = new Array();
+
 Start();
 
 /**
@@ -69,7 +71,10 @@ function Start()
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
-			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).material.color.a = 1;
+			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
+			Debug.Log(number);
+			ButtonNumbers.push(number);
+			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
 }
@@ -85,29 +90,30 @@ function OnDropdown(i : int)
 	if(i == 0)
 	{
 		ImageComponent.sprite = Image1;
-		for(button in Floor3)
+		for(i = 0; i < Floor3.length; i++)
 		{
-			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
+
 		}
-		//Button2.interactable = true;
 	}
 	if(i == 1)
 	{
 		ImageComponent.sprite = Image2;
-		for(button in Floor3)
+		for(i = 0; i < Floor3.length; i++)
 		{
-			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 		}
-		//Button2.interactable = false;
 	}
 	if(i == 2)
 	{
 		ImageComponent.sprite = Image3;
-		for(button in Floor3)
+		for(i = 0; i < Floor3.length; i++)
 		{
-			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = ButtonNumbers[i];
 		}
-		//Button2.interactable = false;
 	}
 }
 
