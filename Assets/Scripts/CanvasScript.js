@@ -24,6 +24,13 @@ var show = false;
 
 var ImageComponent : UnityEngine.UI.Image;
 
+/**
+* object representing the Dropdown GameObject
+*
+* @property Dropdown
+* @type UnityEngine.UI.Dropdown
+**/
+
 var Dropdown : UnityEngine.UI.Dropdown;
 
 /**
@@ -58,14 +65,28 @@ var Image3 : Sprite;
 **/
 var Floor3 : GameObject[];
 
+/**
+* the numbers on all the corresponding buttons in the map menu
+* 
+* @property ButtonNumbers
+* @type String[]
+**/
+
 var ButtonNumbers = new Array();
+
+/**
+* Name of the active scene
+*
+* @property SceneName
+* @type String
+**/
 
 var SceneName : String;
 
 //Start(); unnecessary code
 
 /**
-* sets value of variables c, movement, frozen, sets map menu to invisible, and sets interactivity of floor buttons to false
+* sets value of variables c, movement, SceneName; sets map menu to invisible, and sets interactivity of floor buttons to false
 *
 * @method Start
 **/
@@ -73,7 +94,6 @@ function Start()
 {
 	var Hello = "Hello";
 	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-	Debug.Log(SceneName[SceneName.length-1]);
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
