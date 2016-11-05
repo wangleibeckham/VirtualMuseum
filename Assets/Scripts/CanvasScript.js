@@ -58,7 +58,7 @@ var Floor3 : GameObject[];
 
 var ButtonNumbers = new Array();
 
-var SceneName;
+var SceneName : String;
 
 //Start(); unnecessary code
 
@@ -69,8 +69,9 @@ var SceneName;
 **/
 function Start()
 {
+	var Hello = "Hello";
 	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-	Debug.Log(SceneName);
+	Debug.Log(SceneName[SceneName.length-1]);
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
@@ -78,6 +79,12 @@ function Start()
 			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
 			//Debug.Log(number);
 			ButtonNumbers.push(number);
+			if (number == SceneName[SceneName.length-1])
+			{
+				(button.GetComponent("Button") as UnityEngine.UI.Button).colors.normalColor = Color.black;
+
+			}
+
 			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
@@ -115,6 +122,7 @@ function OnDropdown(i : int)
 		ImageComponent.sprite = Image3;
 		for(i = 0; i < Floor3.length; i++)
 		{
+
 			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
 			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = ButtonNumbers[i];
 		}
