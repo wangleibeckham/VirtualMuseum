@@ -58,7 +58,7 @@ var Floor3 : GameObject[];
 
 var ButtonNumbers = new Array();
 
-var SceneName : String;
+var SceneName;
 
 //Start(); unnecessary code
 
@@ -69,7 +69,8 @@ var SceneName : String;
 **/
 function Start()
 {
-	Debug.Log(Application.loadedLevelName);
+	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+	Debug.Log(SceneName);
 	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
