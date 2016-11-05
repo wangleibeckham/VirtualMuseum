@@ -86,7 +86,7 @@ function OnMouseDown()
 function renderContent()
 {
 	// title of the popup
-	panel.transform.Find("Title").GetComponent(UI.Text).text = title;
+	panel.transform.Find("Title Panel").transform.Find("Title").GetComponent(UI.Text).text = title;
 
 	// description of the popup
 	panel.transform.Find("Description Panel/Description").GetComponent(UI.Text).text = description;
