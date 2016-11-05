@@ -24,6 +24,8 @@ var show = false;
 
 var ImageComponent : UnityEngine.UI.Image;
 
+var Dropdown : UnityEngine.UI.Dropdown;
+
 /**
 * the first floor map of the museum
 * 
@@ -142,6 +144,8 @@ function TogglePopupClick()
 	{
 		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
+		Dropdown.value = 2; 
+		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the SceneName perhaps?
 	}
     else
     {
