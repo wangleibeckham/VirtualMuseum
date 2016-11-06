@@ -83,6 +83,14 @@ var ButtonNumbers = new Array();
 
 var SceneName : String;
 
+/**
+* Reference to the Image part of the map menu
+*
+* @property Map
+* @type GameObject
+*/
+private var Map : GameObject;
+
 //Start(); unnecessary code
 
 /**
@@ -94,7 +102,7 @@ function Start()
 {
 	var Hello = "Hello";
 	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-	ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+	Map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
@@ -162,7 +170,7 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		ImageComponent.GetComponent(CanvasGroup).alpha = 1f;
+		Map.SetActive(true);
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 		Dropdown.value = 2; 
 		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the SceneName perhaps?
@@ -170,7 +178,7 @@ function TogglePopupClick()
     else
     {
 		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
-        ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+        Map.SetActive(false);
     }
 }
 
@@ -185,7 +193,7 @@ function ClosePopupClick()
 	{
 		show = false;
 		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
-		ImageComponent.GetComponent(CanvasGroup).alpha = 0f;
+		Map.SetActive(false);
 	}
 }
 
