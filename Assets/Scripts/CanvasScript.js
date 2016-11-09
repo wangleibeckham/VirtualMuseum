@@ -102,12 +102,13 @@ function Start()
 {
 	var Hello = "Hello";
 	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+	Debug.Log(SceneName);
 	Map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
+	Map.SetActive(true);
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
 			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
-			//Debug.Log(number);
 			ButtonNumbers.push(number);
 			if (number == SceneName[SceneName.length-1])
 			{
@@ -118,6 +119,7 @@ function Start()
 			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
+	Map.SetActive(false);
 }
 
 /**
