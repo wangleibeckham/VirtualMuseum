@@ -203,9 +203,9 @@ function ClosePopupClick()
 * loads scene i
 *
 * @method ChangeRoom
-@ @param {Integer} i The index of the scene from the build settings of the project
+@ @param {String} scene The name of the scene from the build settings of the project
 **/
-function ChangeRoom(i : int)
+function ChangeRoom(scene : String)
 {
-	SceneManagement.SceneManager.LoadScene(i);
+	SceneManagement.SceneManager.LoadScene(scene);
 }
