@@ -24,6 +24,8 @@ var show = false;
 
 var ImageComponent : UnityEngine.UI.Image;
 
+var Background : GameObject;
+
 /**
 * object representing the Dropdown GameObject
 *
@@ -104,7 +106,10 @@ function Start()
 	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 	Debug.Log(SceneName);
 	Map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
+	Background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
+
 	Map.SetActive(true);
+	Background.SetActive(true);
 	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in Floor3)
 		{
@@ -120,6 +125,7 @@ function Start()
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
 	Map.SetActive(false);
+	Background.SetActive(false);
 }
 
 /**
@@ -173,6 +179,7 @@ function TogglePopupClick()
 	if(show)
 	{
 		Map.SetActive(true);
+		Background.SetActive(true);
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 		Dropdown.value = 2; 
 		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the SceneName perhaps?
@@ -181,6 +188,7 @@ function TogglePopupClick()
     {
 		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
         Map.SetActive(false);
+        Background.SetActive(false);
     }
 }
 
@@ -196,6 +204,7 @@ function ClosePopupClick()
 		show = false;
 		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
 		Map.SetActive(false);
+		Background.SetActive(false);
 	}
 }
 
