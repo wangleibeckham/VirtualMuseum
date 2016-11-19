@@ -1,5 +1,5 @@
 /**
-* Handles responding to user interaction with the Canvas (Map Menu) and any OnClick or OnValueChange functions for buttons and dropdowns in it.<br>
+* Handles responding to user interaction with the Canvas (map Menu) and any OnClick or OnValueChange functions for buttons and dropdowns in it.<br>
 * Megan DuPriest<br>
 * Original code source: none
 *
@@ -13,109 +13,115 @@
 * @property show
 * @type boolean
 **/
-var show = false;
+private var show = false;
 
 /**
 * object representing the Image GameObject
 *
-* @property ImageComponent
+* @property imageComponent
 * @type UnityEngine.UI.Image
 **/
 
-var ImageComponent : UnityEngine.UI.Image;
+var imageComponent : UnityEngine.UI.Image;
 
-var Background : GameObject;
+/**
+* object representing the dark layer over the rest of the scene while the map is open
+*
+* @property background
+* @type GameObject
+**/
+private var background : GameObject;
 
 /**
 * object representing the Dropdown GameObject
 *
-* @property Dropdown
+* @property dropdown
 * @type UnityEngine.UI.Dropdown
 **/
 
-var Dropdown : UnityEngine.UI.Dropdown;
+var dropdown : UnityEngine.UI.Dropdown;
 
 /**
 * the first floor map of the museum
 * 
-* @property Image1
+* @property image1
 * @type Sprite
 **/
-var Image1 : Sprite;
+var image1 : Sprite;
 
 /**
 * the second floor map of the museum
 * 
-* @property Image2
+* @property image2
 * @type Sprite
 **/
-var Image2 : Sprite;
+var image2 : Sprite;
 
 /**
 * the third floor map of the museum
 *
-*@property Image3
+*@property image3
 * @type Sprite
 **/
-var Image3 : Sprite;
+var image3 : Sprite;
 
 /**
 * all buttons tagged with 'Floor3'
 *
-* @property Floor3
+* @property floor3
 * @type GameObject[]
 **/
-var Floor3 : GameObject[];
+private var floor3 : GameObject[];
 
 /**
 * the numbers on all the corresponding buttons in the map menu
 * 
-* @property ButtonNumbers
+* @property buttonNumbers
 * @type String[]
 **/
 
-var ButtonNumbers = new Array();
+private var buttonNumbers = new Array();
 
 /**
 * Name of the active scene
 *
-* @property SceneName
+* @property sceneName
 * @type String
 **/
 
-var SceneName : String;
+private var sceneName : String;
 
 /**
 * Reference to the Image part of the map menu
 *
-* @property Map
+* @property map
 * @type GameObject
 */
-private var Map : GameObject;
+private var map : GameObject;
 
 //Start(); unnecessary code
 
 /**
-* sets value of variables c, movement, SceneName; sets map menu to invisible, and sets interactivity of floor buttons to false
+* sets value of variables c, movement, sceneName; sets map menu to invisible, and sets interactivity of floor buttons to false
 *
 * @method Start
 **/
 function Start()
 {
 	var Hello = "Hello";
-	SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-	Debug.Log(SceneName);
-	Map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
-	Background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
+	sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+	Debug.Log(sceneName);
+	map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
+	background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
 
-	Map.SetActive(true);
-	Background.SetActive(true);
-	Floor3 = GameObject.FindGameObjectsWithTag("Floor3");
-	for(button in Floor3)
+	map.SetActive(true);
+	background.SetActive(true);
+	floor3 = GameObject.FindGameObjectsWithTag("Floor3");
+	for(button in floor3)
 		{
 			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
-			ButtonNumbers.push(number);
-			if (number == SceneName[SceneName.length-1])
+			buttonNumbers.push(number);
+			if (number == sceneName[sceneName.length-1])
 			{
 				(button.GetComponent("Button") as UnityEngine.UI.Button).colors.normalColor = Color.black;
 
@@ -124,12 +130,12 @@ function Start()
 			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 		}
-	Map.SetActive(false);
-	Background.SetActive(false);
+	map.SetActive(false);
+	background.SetActive(false);
 }
 
 /**
-* for dropdown onValueChange function; changes map image displayed dependent on the integer index value received.
+* for Dropdown onValueChange function; changes map image displayed dependent on the integer index value received.
 * 
 * @method OnDropdown
 * @param {Integer} i The index value of the dropdown option selected by the user; and toggles interactivity of floor buttons
@@ -138,31 +144,31 @@ function OnDropdown(i : int)
 {
 	if(i == 0)
 	{
-		ImageComponent.sprite = Image1;
-		for(i = 0; i < Floor3.length; i++)
+		imageComponent.sprite = image1;
+		for(i = 0; i < floor3.length; i++)
 		{
-			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
-			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
+			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 
 		}
 	}
 	if(i == 1)
 	{
-		ImageComponent.sprite = Image2;
-		for(i = 0; i < Floor3.length; i++)
+		imageComponent.sprite = image2;
+		for(i = 0; i < floor3.length; i++)
 		{
-			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
-			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
+			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 		}
 	}
 	if(i == 2)
 	{
-		ImageComponent.sprite = Image3;
-		for(i = 0; i < Floor3.length; i++)
+		imageComponent.sprite = image3;
+		for(i = 0; i < floor3.length; i++)
 		{
 
-			(Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
-			((Floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = ButtonNumbers[i];
+			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = buttonNumbers[i];
 		}
 	}
 }
@@ -178,17 +184,17 @@ function TogglePopupClick()
 	show = !show;
 	if(show)
 	{
-		Map.SetActive(true);
-		Background.SetActive(true);
+		map.SetActive(true);
+		background.SetActive(true);
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
-		Dropdown.value = 2; 
-		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the SceneName perhaps?
+		dropdown.value = 2; 
+		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the sceneName perhaps?
 	}
     else
     {
 		(Camera.main.GetComponent("Movement") as Movement).enabled = true;
-        Map.SetActive(false);
-        Background.SetActive(false);
+        map.SetActive(false);
+        background.SetActive(false);
     }
 }
 
@@ -203,8 +209,8 @@ function ClosePopupClick()
 	{
 		show = false;
 		(Camera.main.GetComponent(Movement) as Movement).enabled = true;
-		Map.SetActive(false);
-		Background.SetActive(false);
+		map.SetActive(false);
+		background.SetActive(false);
 	}
 }
 
