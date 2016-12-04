@@ -60,10 +60,18 @@ var image2 : Sprite;
 /**
 * the third floor map of the museum
 *
-*@property image3
+* @property image3
 * @type Sprite
 **/
 var image3 : Sprite;
+
+/**
+* an array of image1, image2, and image3
+*
+* @property images
+* @type Sprite[]
+**/
+var images : Sprite[];
 
 /**
 * all buttons tagged with 'Floor3'
@@ -71,6 +79,7 @@ var image3 : Sprite;
 * @property floor3
 * @type GameObject[]
 **/
+
 private var floor3 : GameObject[];
 
 /**
@@ -102,7 +111,7 @@ private var map : GameObject;
 //Start(); unnecessary code
 
 /**
-* sets value of variables c, movement, sceneName; sets map menu to invisible, and sets interactivity of floor buttons to false
+* sets value of variables c, movement, sceneName, images; sets map menu to invisible, and sets interactivity of floor buttons to false
 *
 * @method Start
 **/
@@ -110,6 +119,7 @@ function Start()
 {
 	sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 	map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
+	images = [image1, image2, image3];
 	background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
 	map.SetActive(true);
 	background.SetActive(true);
@@ -139,9 +149,10 @@ function Start()
 **/
 function OnDropdown(i : int) 
 {
+	imageComponent.sprite = images[i];
 	if(i == 0)
 	{
-		imageComponent.sprite = image1;
+		//imageComponent.sprite = image1;
 		for(i = 0; i < floor3.length; i++)
 		{
 			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
@@ -151,7 +162,7 @@ function OnDropdown(i : int)
 	}
 	if(i == 1)
 	{
-		imageComponent.sprite = image2;
+		//imageComponent.sprite = image2;
 		for(i = 0; i < floor3.length; i++)
 		{
 			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
@@ -160,7 +171,7 @@ function OnDropdown(i : int)
 	}
 	if(i == 2)
 	{
-		imageComponent.sprite = image3;
+		//imageComponent.sprite = image3;
 		for(i = 0; i < floor3.length; i++)
 		{
 
