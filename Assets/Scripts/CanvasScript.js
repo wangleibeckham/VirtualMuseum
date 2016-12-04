@@ -108,12 +108,9 @@ private var map : GameObject;
 **/
 function Start()
 {
-	var Hello = "Hello";
 	sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-	Debug.Log(sceneName);
 	map = GameObject.Find("Canvas").transform.Find("Image").gameObject;
 	background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
-
 	map.SetActive(true);
 	background.SetActive(true);
 	floor3 = GameObject.FindGameObjectsWithTag("Floor3");
