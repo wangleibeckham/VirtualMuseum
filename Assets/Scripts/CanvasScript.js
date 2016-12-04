@@ -8,6 +8,15 @@
 **/
 
 /**
+* how many floors/images
+*
+* @property numFloors
+* @type int
+**/
+
+var numFloors : int;
+
+/**
 * is the map menu visible
 *
 * @property show
@@ -74,6 +83,14 @@ var image3 : Sprite;
 var images : Sprite[];
 
 /**
+* array of floors' buttons
+*
+* @property floors
+* @type GameObject[][]
+**/
+
+private var floors = new Array();
+/**
 * all buttons tagged with 'Floor3'
 *
 * @property floor3
@@ -123,6 +140,11 @@ function Start()
 	background = GameObject.Find("Canvas").transform.Find("Background").gameObject;
 	map.SetActive(true);
 	background.SetActive(true);
+	for( var i = 1; i <= numFloors; i++) {
+		var floor = GameObject.FindGameObjectsWithTag("Floor" + i.ToString());
+		floors[floors.length] = floor;
+		print(floor.length);
+	}
 	floor3 = GameObject.FindGameObjectsWithTag("Floor3");
 	for(button in floor3)
 		{
