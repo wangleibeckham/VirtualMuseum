@@ -70,7 +70,7 @@ function OnMouseDown()
 {
 	var isOpen:boolean = panel.activeInHierarchy;
 	if (!isOpen){
-		renderContent();
+		RenderContent();
 	}
 
 	Camera.main.GetComponent(Movement).enabled = isOpen;
@@ -81,9 +81,9 @@ function OnMouseDown()
 /**
  * the function to render the content of the Popup 
  *
- * @method renderContent
+ * @method RenderContent
  */
-function renderContent()
+function RenderContent()
 {
 	// title of the popup
 	panel.transform.Find("Title Panel").transform.Find("Title").GetComponent(UI.Text).text = title;
