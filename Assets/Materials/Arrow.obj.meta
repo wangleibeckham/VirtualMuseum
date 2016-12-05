@@ -1,39 +1,20 @@
 fileFormatVersion: 2
-guid: ee06d4b91526b7a43aada4fafc6e575f
-timeCreated: 1479359370
+guid: e9f88eacf4834dd4db22ca68a6f4337e
+timeCreated: 1480908411
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Arrow
-    100002: //RootNode
-    100004: Arrow_Curve_1
-    100006: Arrow_Curve_1_Cap_1
-    100008: Arrow_Curve_2
-    100010: Arrow_Curve_2_Cap_2
-    400000: Arrow
-    400002: //RootNode
-    400004: Arrow_Curve_1
-    400006: Arrow_Curve_1_Cap_1
-    400008: Arrow_Curve_2
-    400010: Arrow_Curve_2_Cap_2
-    2300000: Arrow
-    2300002: Arrow_Curve_1
-    2300004: Arrow_Curve_1_Cap_1
-    2300006: Arrow_Curve_2
-    2300008: Arrow_Curve_2_Cap_2
-    3300000: Arrow
-    3300002: Arrow_Curve_1
-    3300004: Arrow_Curve_1_Cap_1
-    3300006: Arrow_Curve_2
-    3300008: Arrow_Curve_2_Cap_2
-    4300000: Arrow
-    4300002: Arrow_Curve_1
-    4300004: Arrow_Curve_1_Cap_1
-    4300006: Arrow_Curve_2
-    4300008: Arrow_Curve_2_Cap_2
+    100000: //RootNode
+    100002: arrow_001
+    400000: //RootNode
+    400002: arrow_001
+    2300000: arrow_001
+    3300000: arrow_001
+    4300000: arrow_001
+    6400000: arrow_001
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -58,7 +39,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
