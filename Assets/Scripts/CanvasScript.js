@@ -90,8 +90,9 @@ var images : Sprite[];
 **/
 
 private var floors = new Array();
+
 /**
-* all buttons tagged with 'Floor3'
+* array of floor3's buttons
 *
 * @property floor3
 * @type GameObject[]
@@ -132,6 +133,8 @@ private var map : GameObject;
 *
 * @method Start
 **/
+private var dropval : int = 2;
+
 function Start()
 {
 	sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
@@ -141,24 +144,32 @@ function Start()
 	map.SetActive(true);
 	background.SetActive(true);
 	for( var i = 1; i <= numFloors; i++) {
-		var floor = GameObject.FindGameObjectsWithTag("Floor" + i.ToString());
+		var floor : GameObject[] = GameObject.FindGameObjectsWithTag("Floor" + i.ToString());
 		floors[floors.length] = floor;
-		print(floor.length);
 	}
-	floor3 = GameObject.FindGameObjectsWithTag("Floor3");
-	for(button in floor3)
-		{
-			var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
-			buttonNumbers.push(number);
-			if (number == sceneName[sceneName.length-1])
+
+	for(floor in floors) 
+	{
+		var subButtonNumbers = new Array();
+		for(button in floor)
 			{
-				(button.GetComponent("Button") as UnityEngine.UI.Button).colors.normalColor = Color.black;
+				var sceneNum = '';
+				for(var v = 5; v < sceneName.length; v++) {
+					sceneNum = sceneNum + sceneName[v];
+				}
+				var number = ((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text;
+				subButtonNumbers.push(number);
+				if (number == sceneNum) // fix this, should be not just the last number
+				{
+					(button.GetComponent("Button") as UnityEngine.UI.Button).colors.normalColor = Color.black;
 
+				}
+
+				((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
+				(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
 			}
-
-			((button.GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
-			(button.GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
-		}
+		buttonNumbers.push(subButtonNumbers);
+	}
 	map.SetActive(false);
 	background.SetActive(false);
 }
@@ -172,35 +183,26 @@ function Start()
 function OnDropdown(i : int) 
 {
 	imageComponent.sprite = images[i];
-	if(i == 0)
-	{
-		//imageComponent.sprite = image1;
-		for(i = 0; i < floor3.length; i++)
+	var floor : GameObject[] = floors[i];
+	var prev_floor : GameObject[] = floors[dropval];
+
+	for(var j = 0; j < floor.length; j++)
 		{
-			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
-			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
+			var subButtonNumbers : String[] = buttonNumbers[i];
+			var num = subButtonNumbers[j];
+			(floor[j].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
+			((floor[j].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = num;
+		}
+	if(i != dropval) 
+	{
+	for(var k = 0; k < prev_floor.length; k++)
+		{
+			(prev_floor[k].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
+			((prev_floor[k].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
 
 		}
 	}
-	if(i == 1)
-	{
-		//imageComponent.sprite = image2;
-		for(i = 0; i < floor3.length; i++)
-		{
-			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = false;
-			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = " ";
-		}
-	}
-	if(i == 2)
-	{
-		//imageComponent.sprite = image3;
-		for(i = 0; i < floor3.length; i++)
-		{
-
-			(floor3[i].GetComponent("Button") as UnityEngine.UI.Button).interactable = true;
-			((floor3[i].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = buttonNumbers[i];
-		}
-	}
+	dropval = i;
 }
 
 /**
@@ -218,6 +220,7 @@ function TogglePopupClick()
 		background.SetActive(true);
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 		dropdown.value = 2; 
+		dropval = 2;
 		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the sceneName perhaps?
 	}
     else
