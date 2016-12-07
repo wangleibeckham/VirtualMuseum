@@ -126,10 +126,10 @@ private var map : GameObject;
 /**
 * The index of the currently selected dropdown option
 *
-* @property dropval
+* @property dropVal
 * @type int
 */
-private var dropval : int = 2;
+private var dropVal : int = 2;
 
 /**
 * Inherited from MonoBehavior. Called once on initialization.
@@ -187,7 +187,7 @@ function OnDropdown(i : int)
 {
 	imageComponent.sprite = images[i];
 	var floor : GameObject[] = floors[i];
-	var prev_floor : GameObject[] = floors[dropval];
+	var prev_floor : GameObject[] = floors[dropVal];
 
 	for(var j = 0; j < floor.length; j++)
 	{
@@ -197,7 +197,7 @@ function OnDropdown(i : int)
 		((floor[j].GetComponent("Button") as UnityEngine.UI.Button).transform.GetChild(0).gameObject.GetComponent("Text") as UnityEngine.UI.Text).text = num;
 	}
 
-	if(i != dropval) 
+	if(i != dropVal) 
 	{
 		for(var k = 0; k < prev_floor.length; k++)
 		{
@@ -206,7 +206,7 @@ function OnDropdown(i : int)
 
 		}
 	}
-	dropval = i;
+	dropVal = i;
 }
 
 /**
@@ -223,7 +223,7 @@ function TogglePopupClick()
 		background.SetActive(true);
 		(Camera.main.GetComponent("Movement") as Movement).enabled = false;
 		dropdown.value = 2; 
-		dropval = 2;
+		dropVal = 2;
 		// hard coded to open to floor you're on... which is Floor 3 right now, but should eventually be based on actual floor number denoted in the sceneName perhaps?
 	}
     else
