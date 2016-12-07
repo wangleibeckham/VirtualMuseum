@@ -7,30 +7,45 @@ Judy Chung, Zhenwei Wang, Kammy Liu
 
 #pragma strict
 
+/**
+* Minimum allowed font size
+*
+* @property minFontSize
+* @type float
+*/
+public var minFontSize : float;
 
 /**
- * the function that is triggered when the + or - button is clicked.
- * the function will determine the button that is clicked and make text font change correspondingly.
- * for this version, the font size is hard coded to be >8 && <18, will make changes in later version.
+* Maximum allowed font size
+*
+* @property maxFontSize
+* @type float
+*/
+public var maxFontSize : float;
+
+/**
+ * Triggered when the + or - button is clicked.
+ * Determines which button was clicked and makes text font size change correspondingly.
  *
  * @method ChangeFont
+ * @param increase {boolean} True when triggered from the + button, false when triggered from the - button
  */
-function ChangeFont(increase:boolean) 
+function ChangeFont(increase : boolean) 
 {
 	var description = GameObject.Find("Popup").transform.Find("Panel/Description Panel/Description").GetComponent(UI.Text);
 	var currFontSize = description.fontSize;
 	
 	if(increase){		
-		description.fontSize = (currFontSize<18) ? currFontSize+1 : currFontSize;
+		description.fontSize = (currFontSize<maxFontSize) ? currFontSize+1 : currFontSize;
 	} else {
-		description.fontSize = (currFontSize>8) ? currFontSize-1 : currFontSize;
+		description.fontSize = (currFontSize>minFontSize) ? currFontSize-1 : currFontSize;
 	}
 
 	//Debug.Log("Font size: "+description.fontSize);
 }
 
 /**
- * Triggered when the cancel button is clicked. Closes the Popup and enables camera movement.
+ * Triggered when the Close Button is clicked. Closes the Popup and enables camera movement.
  *
  * @method ClosePopup
  */

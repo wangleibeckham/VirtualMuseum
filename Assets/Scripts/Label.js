@@ -8,7 +8,7 @@ Judy Chung, Zhenwei Wang, Kammy Liu
 #pragma strict
 
 /**
-* image holder for pop-up
+* Image holder for popup
 * 
 * @property texture
 * @type Texture2D
@@ -16,7 +16,7 @@ Judy Chung, Zhenwei Wang, Kammy Liu
 var texture : Texture2D;
 
 /**
-* Title of the pop-up
+* Title of the popup
 *
 * @property title
 * @type string
@@ -24,21 +24,12 @@ var texture : Texture2D;
 var title: String;
 
 /**
-* Description of pop-up
+* Description of popup
 *
 * @property description
 * @type String
 */
 var description: String;
-
-
-/**
-* define the style of the content
-*
-* @property style
-* @type GUIStyle
-*/
-var style : GUIStyle;
 
 
 /**
@@ -50,7 +41,7 @@ var style : GUIStyle;
 private var panel : GameObject;
 
 /**
- * Called on initialization. Stores reference to Popup's Panel object
+ * Inherited from MonoBehavior. Called once on initialization. Stores reference to Popup's Panel object.
  *
  * @method Start
  */
@@ -62,14 +53,15 @@ function Start ()
 
 
 /**
- * If mouse is clicked toggles whether the Popup Panel is active and whether camera movement is enabled 
+ * Triggered when the object is clicked. Toggles whether the Popup Panel is active and whether camera movement is enabled.
  *
  * @method OnMouseDown
  */
 function OnMouseDown()
 {
 	var isOpen:boolean = panel.activeInHierarchy;
-	if (!isOpen){
+	if (!isOpen)
+	{
 		RenderContent();
 	}
 
@@ -79,7 +71,7 @@ function OnMouseDown()
 
 
 /**
- * the function to render the content of the Popup 
+ * The function to render the content of the Popup.
  *
  * @method RenderContent
  */
