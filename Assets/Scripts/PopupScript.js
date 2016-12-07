@@ -32,7 +32,7 @@ public var maxFontSize : float;
  */
 function ChangeFont(increase : boolean) 
 {
-	var description = GameObject.Find("Popup").transform.Find("Panel/Description Panel/Description").GetComponent(UI.Text);
+	var description = GameObject.Find("Popup").transform.Find("Panel/Description Panel/Description/Text").GetComponent(UI.Text);
 	var currFontSize = description.fontSize;
 	
 	if(increase){		
