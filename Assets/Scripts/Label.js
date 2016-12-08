@@ -59,6 +59,9 @@ function Start ()
  */
 function OnMouseDown()
 {
+	// scroll the scrollbar back top when opened
+	panel.transform.Find("Description Panel/Description").GetComponent(UI.ScrollRect).verticalNormalizedPosition = 1f;
+
 	var isOpen:boolean = panel.activeInHierarchy;
 	if (!isOpen)
 	{
@@ -82,6 +85,7 @@ function RenderContent()
 
 	// description of the popup
 	panel.transform.Find("Description Panel/Description/Text").GetComponent(UI.Text).text = description;
+
 
 	// image of the popup
 	panel.transform.Find("Image").GetComponent(UI.RawImage).texture = texture;
